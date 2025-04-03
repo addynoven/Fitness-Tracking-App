@@ -1,0 +1,25 @@
+{
+	"name": "backend",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "bun --watch run ./src/server.ts"
+	},
+	"keywords": [],
+	"author": "neon",
+	"license": "MIT",
+	"description": "Fitness Tracking API",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/express": "^5.0.1",
+		"@types/node": "^22.14.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5.8.2"
+	},
+	"dependencies": {
+		"bun": "latest",
+		"express": "^5.1.0"
+	}
+}
