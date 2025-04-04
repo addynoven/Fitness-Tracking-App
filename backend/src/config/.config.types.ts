@@ -1,7 +1,8 @@
 interface Config {
-	PORT: string;
+	PORT: Number;
 	NODE_ENV: string;
 	MONGODB_URI: string;
+	BETTER_AUTH_SECRET: string;
 	GMAIL_USER: string;
 	GMAIL_PASS: string;
 	// GOOGLE_CLIENT_ID: string;

@@ -1,43 +1,35 @@
-import config from "./config/config";
-import "./config/Mongodb";
 import express from "express";
+import config from "./config/config";
+import "./config/Mongodb"; // Initialize MongoDB connection
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
-// import cors from "cors";
+import notFound from "./middleware/notfound";
+import errorHandler from "./middleware/errorHandler";
+import router from "./routes/index.Routes";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./utils/auth";
+
 const app = express();
 
-// CORS configuration
-// app.use(
-// 	cors({
-// 		origin: "http://localhost:5173",
-// 		credentials: true,
-// 	})
-// );
+app.use(morgan("dev")); // HTTP request logger
+app.all("/api/auth/*name", toNodeHandler(auth));
 
-// Middleware
+// Middleware setup
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(cookieParser()); // Parse cookies
 
-// Middleware for logging
-app.use(morgan("dev"));
+// Main application routes
+app.use("/", router);
 
-// Middleware for JSON data
-app.use(express.json());
+// Error handling middleware
+app.use(notFound); // Handle 404 errors
+app.use(errorHandler); // Handle other errors
 
-// Middleware for form data
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.json());
-app.use(cookieParser()); // Middleware for cookies
-
-app.get("/", (req, res) => {
-	res.send("Fitness Tracking API is running!");
-});
-
-//PORT
-const PORT = Number(config.PORT);
-if (isNaN(PORT) || PORT < 0 || PORT > 65535)
-	throw new Error("Invalid PORT number");
-
-//Server start
+// Start the servers
+const PORT = config.PORT || 3000;
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export default app;

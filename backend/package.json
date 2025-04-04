@@ -23,14 +23,18 @@
 		"typescript": "^5.8.2"
 	},
 	"dependencies": {
+		"@types/better-sqlite3": "^7.6.12",
 		"@types/cookie-parser": "^1.4.8",
 		"@types/cors": "^2.8.17",
+		"better-auth": "^1.2.5",
+		"better-sqlite3": "^11.9.1",
 		"bun": "latest",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.7",
 		"express": "^5.1.0",
 		"mailgen": "^2.0.29",
+		"mongodb": "^6.15.0",
 		"mongoose": "^8.13.2",
 		"morgan": "^1.10.0",
 		"nodemailer": "^6.10.0"
