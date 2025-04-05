@@ -60,7 +60,14 @@ const userProfileSchema = new mongoose.Schema(
 			default: [],
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+// Virtual field for reverse population
+userProfileSchema.virtual("activities", {
+	ref: "Activity",
+	localField: "userId",
+	foreignField: "userId",
+});
 
 export default mongoose.model("UserProfile", userProfileSchema);

@@ -10,8 +10,8 @@ import authMiddleware from "../middleware/authMiddleware";
 
 const router = express.Router();
 
-router.post("/", authMiddleware, createActivity);
 router.get("/", authMiddleware, getAllActivities);
+router.post("/", authMiddleware, createActivity);
 
 router.get("/:id", authMiddleware, getActivityById);
 router.put("/:id", authMiddleware, updateActivity);

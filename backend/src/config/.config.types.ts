@@ -5,6 +5,7 @@ interface Config {
 	BETTER_AUTH_SECRET: string;
 	GMAIL_USER: string;
 	GMAIL_PASS: string;
+	SECRET_KEY: string;
 	// GOOGLE_CLIENT_ID: string;
 	// GOOGLE_CLIENT_SECRET: string;
 	// REDIS_HOST: string;
@@ -13,7 +14,6 @@ interface Config {
 	// JWT_EXPIRES_IN: string;
 	// RSA_PUBLIC_KEY: string;
 	// RSA_PRIVATE_KEY: string;
-	// SECRET_KEY: string;
 }
 
 interface MailgenConfig {

@@ -46,7 +46,7 @@ export const updateActivity = asyncHandler(
 
 		const activity = await Activity.findOneAndUpdate(
 			{ _id: activityId, userId },
-			req.body,
+			{ ...req.body },
 			{ new: true }
 		);
 

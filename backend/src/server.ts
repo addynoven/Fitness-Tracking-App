@@ -12,6 +12,7 @@ import { auth } from "./utils/auth";
 const app = express();
 
 app.use(morgan("dev")); // HTTP request logger
+
 app.all("/api/auth/*name", toNodeHandler(auth));
 
 // Middleware setup

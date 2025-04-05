@@ -36,6 +36,7 @@ const config: Config = Object.freeze({
 	BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET as string,
 	GMAIL_USER: process.env.GMAIL_USER as string,
 	GMAIL_PASS: process.env.GMAIL_PASS as string,
+	SECRET_KEY: crypto.randomBytes(32).toString("hex") as string,
 	// GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
 	// GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
 	// REDIS_HOST: process.env.REDIS_HOST as string,
@@ -47,7 +48,6 @@ const config: Config = Object.freeze({
 	// 	/\\n/g,
 	// 	"\n"
 	// ),
-	// SECRET_KEY: crypto.randomBytes(32).toString("hex") as string,
 });
 
 export default config;

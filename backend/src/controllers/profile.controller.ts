@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import asyncHandler from "../middleware/asyncHandler";
 import UserProfile from "../Models/Mongodb/UserProfile";
 
+// (get) -> /me endpoint
 export const getAuthenticatedUser = asyncHandler(
 	async (req: Request, res: Response, next: NextFunction) => {
 		if (!req.user) {
@@ -11,7 +12,7 @@ export const getAuthenticatedUser = asyncHandler(
 	}
 );
 
-// Create or update user profile
+// Create or update user profile (post) -> /profile endpoint
 export const createOrUpdateProfile = asyncHandler(
 	async (req: Request, res: Response) => {
 		const {
@@ -25,7 +26,9 @@ export const createOrUpdateProfile = asyncHandler(
 		} = req.body;
 
 		const userId = req.user?.id;
+
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
 		const parsedPreferences = Array.isArray(dietaryPreferences)
 			? dietaryPreferences
 			: dietaryPreferences?.split(",").map((s: string) => s.trim());
@@ -48,14 +51,16 @@ export const createOrUpdateProfile = asyncHandler(
 	}
 );
 
-// Get user profile
+// Get user profile (get) -> /profile endpoint
 export const getUserProfile = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
-
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-		const profile = await UserProfile.findOne({ userId });
+		const profile = await UserProfile.findOne({ userId }).populate(
+			"activities"
+		);
+
 		if (!profile) return res.status(404).json({ message: "Profile not found" });
 
 		res.json(profile);
