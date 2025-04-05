@@ -14,16 +14,36 @@ export const getAuthenticatedUser = asyncHandler(
 // Create or update user profile
 export const createOrUpdateProfile = asyncHandler(
 	async (req: Request, res: Response) => {
-		const { age, weight, height, fitnessGoals } = req.body;
-		const userId = req.user?.id; // Extracted from auth middleware
+		const {
+			age,
+			weight,
+			height,
+			fitnessGoals,
+			gender,
+			activityLevel,
+			dietaryPreferences,
+		} = req.body;
 
+		const userId = req.user?.id;
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
+		const parsedPreferences = Array.isArray(dietaryPreferences)
+			? dietaryPreferences
+			: dietaryPreferences?.split(",").map((s: string) => s.trim());
 
 		const profile = await UserProfile.findOneAndUpdate(
 			{ userId },
-			{ age, weight, height, fitnessGoals },
+			{
+				age: Number(age),
+				weight: Number(weight),
+				height: Number(height),
+				fitnessGoals,
+				gender,
+				activityLevel,
+				dietaryPreferences: parsedPreferences,
+			},
 			{ new: true, upsert: true }
 		);
+
 		res.json(profile);
 	}
 );
