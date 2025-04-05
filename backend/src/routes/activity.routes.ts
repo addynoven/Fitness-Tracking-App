@@ -10,14 +10,11 @@ import authMiddleware from "../middleware/authMiddleware";
 
 const router = express.Router();
 
-router.use(authMiddleware);
+router.post("/", authMiddleware, createActivity);
+router.get("/", authMiddleware, getAllActivities);
 
-router.route("/").post(createActivity).get(getAllActivities);
-
-router
-	.route("/:id")
-	.get(getActivityById)
-	.put(updateActivity)
-	.delete(deleteActivity);
+router.get("/:id", authMiddleware, getActivityById);
+router.put("/:id", authMiddleware, updateActivity);
+router.delete("/:id", authMiddleware, deleteActivity);
 
 export default router;
