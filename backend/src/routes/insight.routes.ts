@@ -7,7 +7,7 @@ import {
 	getMonthlyCaloriesInsight,
 	getWeeklyCaloriesInsight,
 	getYearlyCaloriesInsight,
-} from "../controllers/insight.controller";
+} from "../controllers/insight/insight.controller";
 
 const router = express.Router();
 

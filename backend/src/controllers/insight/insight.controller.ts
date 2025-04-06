@@ -1,12 +1,12 @@
 // controllers/weeklyInsightController.ts
-import asyncHandler from "../middleware/asyncHandler";
+import asyncHandler from "../../middleware/asyncHandler";
 import type { Request, Response } from "express";
 import {
 	getWeeklyCaloriesInsightService,
 	getDailyCaloriesInsightService,
 	getYearlyCaloriesInsightService,
 	getMonthlyCaloriesInsightService,
-} from "../services/insight.service";
+} from "../../services/insight.service";
 
 export const getWeeklyCaloriesInsight = asyncHandler(
 	async (req: Request, res: Response) => {
