@@ -1,36 +1,41 @@
 import asyncHandler from "../middleware/asyncHandler";
-import type { Request, Response, NextFunction } from "express";
-import Activity from "../Models/Mongodb/Activity";
+import type { Request, Response } from "express";
+import {
+	handleCreateActivity,
+	handleGetAllActivities,
+	handleGetActivityById,
+	handleUpdateActivity,
+	handleDeleteActivity,
+} from "../services/activity.service";
 
-// Create activity
 export const createActivity = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-		const activity = await Activity.create({ ...req.body, userId });
+		const activity = await handleCreateActivity(userId, req.body);
 		res.status(201).json(activity);
 	}
 );
 
-// Get all activities for the user
 export const getAllActivities = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-		const activities = await Activity.find({ userId });
+		const activities = await handleGetAllActivities(userId);
 		res.json(activities);
 	}
 );
 
-// Get one activity
 export const getActivityById = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
-		const activityId = req.params.id;
+		const activityId = req.params?.id;
+		if (!activityId)
+			return res.status(400).json({ message: "Activity ID is required" });
 
-		const activity = await Activity.findOne({ _id: activityId, userId });
+		const activity = await handleGetActivityById(userId, activityId);
 		if (!activity)
 			return res.status(404).json({ message: "Activity not found" });
 
@@ -38,37 +43,30 @@ export const getActivityById = asyncHandler(
 	}
 );
 
-// Update activity
 export const updateActivity = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
-		const activityId = req.params.id;
-
-		const activity = await Activity.findOneAndUpdate(
-			{ _id: activityId, userId },
-			{ ...req.body },
-			{ new: true }
-		);
-
+		const activityId = req.params?.id;
+		if (!activityId)
+			return res.status(400).json({ message: "Activity ID is required" });
+		const activity = await handleUpdateActivity(userId, activityId, req.body);
 		if (!activity)
 			return res
 				.status(404)
 				.json({ message: "Activity not found or unauthorized" });
+
 		res.json(activity);
 	}
 );
 
-// Delete activity
 export const deleteActivity = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user?.id;
-		const activityId = req.params.id;
-
-		const activity = await Activity.findOneAndDelete({
-			_id: activityId,
-			userId,
-		});
-		if (!activity)
+		const activityId = req.params?.id;
+		if (!activityId)
+			return res.status(400).json({ message: "Activity ID is required" });
+		const deleted = await handleDeleteActivity(userId, activityId);
+		if (!deleted)
 			return res
 				.status(404)
 				.json({ message: "Activity not found or unauthorized" });

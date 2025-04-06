@@ -11,4 +11,5 @@ const router = Router();
 router.post("/profile", authMiddleware, createOrUpdateProfile);
 router.get("/profile", authMiddleware, getUserProfile);
 router.get("/me", authMiddleware, getAuthenticatedUser);
+
 export default router;
