@@ -110,3 +110,26 @@ export const processWeeklyWorkoutFrequency = (
 
 	return data;
 };
+
+export const processMonthlyWorkoutFrequency = (
+	rawData: any[],
+	startDate: dayjs.Dayjs
+): number[] => {
+	const daysInMonth = startDate.daysInMonth();
+	const data = new Array(daysInMonth).fill(0);
+
+	// Generate labelMap: { 1: 0, 2: 1, ..., daysInMonth: daysInMonth - 1 }
+	const labelMap: Record<number, number> = {};
+	for (let day = 1; day <= daysInMonth; day++) {
+		labelMap[day] = day - 1;
+	}
+
+	for (const item of rawData) {
+		const idx = labelMap[item._id]; // _id is day-of-month (number)
+		if (idx !== undefined) {
+			data[idx] = item.count;
+		}
+	}
+
+	return data;
+};

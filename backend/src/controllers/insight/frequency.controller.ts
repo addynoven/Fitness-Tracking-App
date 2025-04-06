@@ -1,8 +1,9 @@
 import asyncHandler from "../../middleware/asyncHandler";
 import {
 	getDailyWorkoutFrequencyService,
+	getMonthlyWorkoutFrequencyService,
 	getWeeklyWorkoutFrequencyService,
-} from "../../services/workoutFrequency.service";
+} from "../../services/frequency.service";
 
 export const getWeeklyWorkoutFrequency = asyncHandler(async (req, res) => {
 	const userId = req.user?.id;
@@ -26,6 +27,6 @@ export const getDailyWorkoutFrequency = asyncHandler(async (req, res) => {
 export const getMonthlyWorkoutFrequency = asyncHandler(async (req, res) => {
 	const userId = req.user?.id;
 	const date = req.query.date ? new Date(req.query.date as string) : new Date();
-	const insight = await getWeeklyWorkoutFrequencyService(userId, date);
+	const insight = await getMonthlyWorkoutFrequencyService(userId, date);
 	res.json(insight);
 });

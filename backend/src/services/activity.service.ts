@@ -5,7 +5,7 @@ export const handleCreateActivity = async (userId: string, data: any) => {
 };
 
 export const handleGetAllActivities = async (userId: string) => {
-	return await Activity.find({ userId });
+	return await Activity.find({ userId }).sort({ date: -1 });
 };
 
 export const handleGetActivityById = async (
