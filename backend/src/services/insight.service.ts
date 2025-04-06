@@ -9,7 +9,7 @@ import {
 	fetchMonthlyActivityData,
 	fetchWeeklyActivityData,
 	fetchYearlyActivityData,
-} from "../utils/insight/activityAggregators";
+} from "../utils/insight/activityAggregators/calories";
 import {
 	calculateTotalCalories,
 	processDailyData,

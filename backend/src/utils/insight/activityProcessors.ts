@@ -93,3 +93,20 @@ export function processYearlyData(
 export function calculateTotalCalories(data: number[]): number {
 	return data.reduce((sum, val) => sum + val, 0);
 }
+
+export const processWeeklyWorkoutFrequency = (
+	rawData: any[],
+	labels: string[],
+	labelMap: Record<string, number>
+) => {
+	const data = Array(labels.length).fill(0);
+
+	for (const item of rawData) {
+		const idx = labelMap[item._id];
+		if (idx !== undefined) {
+			data[idx] = item.count;
+		}
+	}
+
+	return data;
+};

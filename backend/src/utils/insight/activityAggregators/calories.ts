@@ -1,4 +1,4 @@
-import Activity from "../../Models/Mongodb/Activity";
+import Activity from "../../../Models/Mongodb/Activity";
 import { Types } from "mongoose";
 import dayjs from "dayjs";
 

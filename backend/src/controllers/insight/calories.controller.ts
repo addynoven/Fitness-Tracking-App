@@ -1,4 +1,4 @@
-// controllers/weeklyInsightController.ts
+// controllers/insight/calories.controller.ts
 import asyncHandler from "../../middleware/asyncHandler";
 import type { Request, Response } from "express";
 import {
