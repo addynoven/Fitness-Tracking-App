@@ -20,10 +20,14 @@ import {
 
 // -------- Public Services --------
 
-export const getWeeklyCaloriesInsightService = async (userId: string) => {
-	const { startDate, endDate, labels, labelMap } = getWeeklyDateRangeConfig();
+export const getWeeklyCaloriesInsightService = async (
+	userId: string,
+	date: Date
+) => {
+	const { startDate, endDate, labels, labelMap } =
+		getWeeklyDateRangeConfig(date);
 	const rawData = await fetchWeeklyActivityData(userId, startDate, endDate);
-	const data = processWeeklyData(rawData, labels, labelMap);
+	const data = processWeeklyData(rawData, labelMap);
 	const totalCalories = calculateTotalCalories(data);
 
 	return {

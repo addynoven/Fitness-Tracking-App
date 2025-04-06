@@ -1,8 +1,7 @@
-import type dayjs from "dayjs";
+import dayjs from "dayjs";
 
 export function processWeeklyData(
 	rawData: any[],
-	labels: string[],
 	labelMap: Record<string, number>
 ): number[] {
 	const weeklyData = new Array(7).fill(0);
@@ -102,7 +101,8 @@ export const processWeeklyWorkoutFrequency = (
 	const data = Array(labels.length).fill(0);
 
 	for (const item of rawData) {
-		const idx = labelMap[item._id];
+		const day = dayjs(item._id).format("ddd"); // e.g., "Tue"
+		const idx = labelMap[day];
 		if (idx !== undefined) {
 			data[idx] = item.count;
 		}

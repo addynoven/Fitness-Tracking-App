@@ -1,15 +1,17 @@
 import dayjs from "dayjs";
 
-export function getWeeklyDateRangeConfig() {
-	const today = dayjs();
+export function getWeeklyDateRangeConfig(
+	baseDate?: string | Date | dayjs.Dayjs
+) {
+	const today = baseDate ? dayjs(baseDate) : dayjs();
 	const dayOfWeek = today.day(); // 0 = Sun ... 6 = Sat
 	const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
 
 	const startDate = today.subtract(diff, "day").startOf("day");
 	const endDate = startDate.add(6, "day").endOf("day");
 
-	const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 	const labelMap = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
+	const labels = Object.keys(labelMap);
 
 	return { startDate, endDate, labels, labelMap };
 }

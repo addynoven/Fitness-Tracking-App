@@ -1,25 +1,25 @@
-import { Types } from "mongoose";
+import type dayjs from "dayjs";
 import Activity from "../../../Models/Mongodb/Activity";
+import { Types } from "mongoose";
 
 export const fetchWeeklyWorkoutFrequency = async (
 	userId: string,
-	startDate: Date,
-	endDate: Date
+	startDate: dayjs.Dayjs,
+	endDate: dayjs.Dayjs
 ) => {
 	console.log("fetchWeeklyWorkoutFrequency function called");
-	const user_Activity_data = await Activity.findById(userId);
-	console.log(user_Activity_data);
-	return Activity.aggregate([
+
+	return await Activity.aggregate([
 		{
 			$match: {
 				userId: new Types.ObjectId(userId),
-				timestamp: { $gte: startDate, $lte: endDate },
+				date: { $gte: startDate.toDate(), $lte: endDate.toDate() },
 			},
 		},
 		{
 			$group: {
 				_id: {
-					$dateToString: { format: "%Y-%m-%d", date: "$timestamp" },
+					$dateToString: { format: "%Y-%m-%d", date: "$date" }, // fixed field
 				},
 				count: { $sum: 1 },
 			},

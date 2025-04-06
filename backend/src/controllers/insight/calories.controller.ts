@@ -11,7 +11,10 @@ import {
 export const getWeeklyCaloriesInsight = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user!.id as string;
-		const insight = await getWeeklyCaloriesInsightService(userId);
+		const date = req.query.date
+			? new Date(req.query.date as string)
+			: new Date();
+		const insight = await getWeeklyCaloriesInsightService(userId, date);
 		res.json(insight);
 	}
 );
