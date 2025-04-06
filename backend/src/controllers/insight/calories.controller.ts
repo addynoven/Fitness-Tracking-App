@@ -22,7 +22,10 @@ export const getWeeklyCaloriesInsight = asyncHandler(
 export const getDailyCaloriesInsight = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user!.id as string;
-		const insight = await getDailyCaloriesInsightService(userId);
+		const date = req.query.date
+			? new Date(req.query.date as string)
+			: new Date();
+		const insight = await getDailyCaloriesInsightService(userId, date);
 		res.json(insight);
 	}
 );
@@ -30,7 +33,10 @@ export const getDailyCaloriesInsight = asyncHandler(
 export const getMonthlyCaloriesInsight = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user!.id as string;
-		const result = await getMonthlyCaloriesInsightService(userId);
+		const date = req.query.date
+			? new Date(req.query.date as string)
+			: new Date();
+		const result = await getMonthlyCaloriesInsightService(userId, date);
 		res.json(result);
 	}
 );
@@ -38,7 +44,10 @@ export const getMonthlyCaloriesInsight = asyncHandler(
 export const getYearlyCaloriesInsight = asyncHandler(
 	async (req: Request, res: Response) => {
 		const userId = req.user!.id as string;
-		const result = await getYearlyCaloriesInsightService(userId);
+		const date = req.query.date
+			? new Date(req.query.date as string)
+			: new Date();
+		const result = await getYearlyCaloriesInsightService(userId, date);
 		res.json(result);
 	}
 );

@@ -9,7 +9,10 @@ import {
 	getYearlyCaloriesInsight,
 } from "../controllers/insight/calories.controller";
 
-import { getWeeklyWorkoutFrequency } from "../controllers/insight/workoutFrequency.controller";
+import {
+	getDailyWorkoutFrequency,
+	getWeeklyWorkoutFrequency,
+} from "../controllers/insight/workoutFrequency.controller";
 
 const router = express.Router();
 
@@ -23,4 +26,7 @@ router.get(
 	authMiddleware,
 	getWeeklyWorkoutFrequency
 );
+
+router.get("/workout-frequency/day", authMiddleware, getDailyWorkoutFrequency);
+
 export default router;

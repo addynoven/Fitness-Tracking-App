@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 
-export function getWeeklyDateRangeConfig(
-	baseDate?: string | Date | dayjs.Dayjs
-) {
+type baseDateType = string | Date | dayjs.Dayjs;
+
+export function getWeeklyDateRangeConfig(baseDate: baseDateType) {
 	const today = baseDate ? dayjs(baseDate) : dayjs();
 	const dayOfWeek = today.day(); // 0 = Sun ... 6 = Sat
 	const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
@@ -16,9 +16,8 @@ export function getWeeklyDateRangeConfig(
 	return { startDate, endDate, labels, labelMap };
 }
 
-export function getDailyDateRangeConfig() {
-	const today = dayjs();
-
+export function getDailyDateRangeConfig(baseDate: baseDateType) {
+	const today = baseDate ? dayjs(baseDate) : dayjs();
 	const startDate = today.startOf("day");
 	const endDate = today.endOf("day");
 
@@ -28,8 +27,8 @@ export function getDailyDateRangeConfig() {
 	return { startDate, endDate, labels, labelMap };
 }
 
-export function getMonthlyDateRangeConfig() {
-	const now = dayjs();
+export function getMonthlyDateRangeConfig(baseDate: baseDateType) {
+	const now = baseDate ? dayjs(baseDate) : dayjs();
 	const startDate = now.startOf("month");
 	const endDate = now.endOf("month");
 
@@ -42,8 +41,8 @@ export function getMonthlyDateRangeConfig() {
 	return { startDate, endDate, labels, labelMap };
 }
 
-export function getYearlyDateRangeConfig() {
-	const now = dayjs();
+export function getYearlyDateRangeConfig(baseDate: baseDateType) {
+	const now = baseDate ? dayjs(baseDate) : dayjs();
 	const startDate = now.startOf("year");
 	const endDate = now.endOf("year");
 

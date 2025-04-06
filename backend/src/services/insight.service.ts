@@ -38,8 +38,12 @@ export const getWeeklyCaloriesInsightService = async (
 	};
 };
 
-export const getDailyCaloriesInsightService = async (userId: string) => {
-	const { startDate, endDate, labels, labelMap } = getDailyDateRangeConfig();
+export const getDailyCaloriesInsightService = async (
+	userId: string,
+	date: Date
+) => {
+	const { startDate, endDate, labels, labelMap } =
+		getDailyDateRangeConfig(date);
 	const rawData = await fetchDailyActivityData(userId, startDate, endDate);
 	const data = processDailyData(rawData, labels, labelMap);
 	const totalCalories = calculateTotalCalories(data);
@@ -52,8 +56,12 @@ export const getDailyCaloriesInsightService = async (userId: string) => {
 	};
 };
 
-export const getMonthlyCaloriesInsightService = async (userId: string) => {
-	const { startDate, endDate, labels, labelMap } = getMonthlyDateRangeConfig();
+export const getMonthlyCaloriesInsightService = async (
+	userId: string,
+	date: Date
+) => {
+	const { startDate, endDate, labels, labelMap } =
+		getMonthlyDateRangeConfig(date);
 	const rawData = await fetchMonthlyActivityData(userId, startDate, endDate);
 	const data = processMonthlyData(rawData, startDate, labelMap);
 	const totalCalories = calculateTotalCalories(data);
@@ -66,8 +74,12 @@ export const getMonthlyCaloriesInsightService = async (userId: string) => {
 	};
 };
 
-export const getYearlyCaloriesInsightService = async (userId: string) => {
-	const { startDate, endDate, labels, labelMap } = getYearlyDateRangeConfig();
+export const getYearlyCaloriesInsightService = async (
+	userId: string,
+	date: Date
+) => {
+	const { startDate, endDate, labels, labelMap } =
+		getYearlyDateRangeConfig(date);
 	const rawData = await fetchYearlyActivityData(userId, startDate, endDate);
 	const data = processYearlyData(rawData, labelMap);
 	const totalCalories = calculateTotalCalories(data);
