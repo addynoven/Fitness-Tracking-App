@@ -25,39 +25,45 @@ export const getBestDayService = async (
 		match.date = { $gte: startDate.toDate(), $lte: endDate.toDate() };
 	}
 
-	// Aggregation: group by day of week (0=Sun, 6=Sat)
+	// Aggregation: group by day of week (Mongo: 1=Sunday, 7=Saturday)
 	const breakdown = await Activity.aggregate([
 		{ $match: match },
 		{
 			$group: {
-				_id: { $dayOfWeek: "$date" }, // Mongo: Sunday = 1, Saturday = 7
+				_id: { $dayOfWeek: "$date" },
 				count: { $sum: 1 },
 			},
 		},
 		{ $sort: { count: -1 } },
 	]);
 
-	// Convert MongoDB 1–7 format to 0–6 (Sunday to Saturday)
+	// Map MongoDB day numbers (1–7) to JS-style Mon–Sun index (0–6)
 	const dayMap = [
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday",
+		"Monday", // 0
+		"Tuesday", // 1
+		"Wednesday", // 2
+		"Thursday", // 3
+		"Friday", // 4
+		"Saturday", // 5
+		"Sunday", // 6
 	];
 
-	const formatted = breakdown.map((entry) => {
-		const mongoDay = entry._id; // 1-7
-		const jsDayIndex = (mongoDay + 5) % 7; // Map 1-7 to 0-6
+	const rawFormatted = breakdown.map((entry) => {
+		const mongoDay = entry._id;
+		const jsDayIndex = (mongoDay + 5) % 7;
 		return {
 			day: dayMap[jsDayIndex],
 			count: entry.count,
 		};
 	});
 
-	const bestDay = formatted[0] || { day: null, count: 0 };
+	// Best day comes from top of rawFormatted (sorted by count descending)
+	const bestDay = rawFormatted[0] || { day: null, count: 0 };
+
+	// Re-sort for frontend chart display (Mon to Sun)
+	const formatted = [...rawFormatted].sort(
+		(a, b) => dayMap.indexOf(a.day || "") - dayMap.indexOf(b.day || "")
+	);
 
 	return {
 		range,
