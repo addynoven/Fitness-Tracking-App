@@ -19,6 +19,7 @@ import { getGoalProgressTracker } from "../controllers/insight/progressTracker.c
 import { getBestDay } from "../controllers/insight/bestDay.controller";
 import { workoutDurationBreakdown } from "../controllers/insight/workoutDurationBreakdown.controller";
 import { streakInsight } from "../controllers/insight/streakInsight.controller";
+import { getMonthlyComparison } from "../controllers/insight/monthlyComparison.controller";
 
 const router = express.Router();
 
@@ -60,5 +61,7 @@ router.get(
 );
 
 router.get("/streak", authMiddleware, streakInsight);
+
+router.get("/compare/month", authMiddleware, getMonthlyComparison);
 
 export default router;
