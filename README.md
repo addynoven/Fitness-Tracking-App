@@ -57,12 +57,11 @@ A smart fitness platform that tracks workouts, calculates calories, provides AI-
 
 ## 📚 API Documentation
 
-👉 (Fitness Tracking App with AI – Postman Workspace)[https://www.postman.com/fitness-tracking-app-with-ai/workspace/fitness-tracking-app-with-ai]
-
+[👉 (Fitness Tracking App with AI – Postman Workspace)](https://www.postman.com/fitness-tracking-app-with-ai/workspace/fitness-tracking-app-with-ai)
 ### Base URL
 
 ```
-{{base_url}}
+{{base_url}}= http://localhost:3000/
 ```
 *(Set in Postman environment)*
 
@@ -165,10 +164,9 @@ npm install
 ### Configure Environment (`.env`)
 
 ```ini
-MONGODB_URI=mongodb://localhost:27017/fitnessdb
+MONGODB_URI= database_url
 JWT_SECRET=your_jwt_secret_key
 PORT=3000
-AI_MODEL_PATH=./ai-models/main.model
 ```
 
 ### Start Server
