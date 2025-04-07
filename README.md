@@ -2,7 +2,7 @@
 
 A smart fitness platform that tracks workouts, calculates calories, provides AI-powered insights, and helps users achieve their fitness goals.
 
-![App Architecture](https://i.imgur.com/mXyGdJl.png)
+![App Architecture](https://lh3.googleusercontent.com/pw/AP1GczMq75zYT3hROgFZ_2jrHXJ9DWsBkzZzN_GTyy2J6YjmYec2V1SAVJNoavCQNVxCJDDU0wTfYb7dJhloCMUHnanqUHWJpvWHJq7t4OnVCRAOKM3ncrg1-zEjUbX-zyPMHJimwTGVLexQBVHq48G6EUS8GA=w880-h880-s-no-gm?authuser=0)
 
 ---
 
