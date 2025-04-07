@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import type { Config } from "./.config.types";
 import crypto from "crypto";
+import { AppError } from "../utils/error";
 
 dotenv.config();
 
@@ -22,12 +23,12 @@ const requiredVars = [
 
 for (const varName of requiredVars) {
 	if (!process.env[varName]) {
-		throw new Error(`${varName} is not defined in environment variables`);
+		throw new AppError(`${varName} is not defined in environment variables`);
 	}
 }
 const PORT = Number(process.env.PORT);
 if (isNaN(PORT) || PORT < 0 || PORT > 65535)
-	throw new Error("Invalid PORT number");
+	throw new AppError("Invalid PORT number");
 
 const config: Config = Object.freeze({
 	PORT: PORT || 3000,

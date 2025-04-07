@@ -25,6 +25,7 @@ const activitySchema = new mongoose.Schema(
 				"Yoga",
 				"Other",
 			],
+			default: "Other",
 		},
 		duration: {
 			type: Number, // duration in minutes
@@ -32,7 +33,7 @@ const activitySchema = new mongoose.Schema(
 		},
 		caloriesBurned: {
 			type: Number,
-			required: false,
+			required: true,
 		},
 		notes: {
 			type: String,

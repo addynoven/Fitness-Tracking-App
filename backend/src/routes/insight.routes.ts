@@ -14,7 +14,11 @@ import {
 	getMonthlyWorkoutFrequency,
 	getWeeklyWorkoutFrequency,
 } from "../controllers/insight/frequency.controller";
-import { getWorkoutTypeBreakdown } from "../controllers/insight/TypeBreakdown.controller";
+import { getWorkoutTypeBreakdown } from "../controllers/insight/typeBreakdown.controller";
+import { getGoalProgressTracker } from "../controllers/insight/progressTracker.controller";
+import { getBestDay } from "../controllers/insight/bestDay.controller";
+import { workoutDurationBreakdown } from "../controllers/insight/workoutDurationBreakdown.controller";
+import { streakInsight } from "../controllers/insight/streakInsight.controller";
 
 const router = express.Router();
 
@@ -38,5 +42,23 @@ router.get(
 );
 
 router.get("/workout-type-breakdown", authMiddleware, getWorkoutTypeBreakdown);
+
+router.get("/goal-progress", authMiddleware, getGoalProgressTracker);
+
+router.get("/best-day", authMiddleware, getBestDay);
+
+router.get(
+	"/workout-duration-breakdown",
+	authMiddleware,
+	workoutDurationBreakdown
+);
+
+router.get(
+	"/workout-duration-breakdown",
+	authMiddleware,
+	workoutDurationBreakdown
+);
+
+router.get("/streak", authMiddleware, streakInsight);
 
 export default router;
