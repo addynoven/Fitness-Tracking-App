@@ -57,6 +57,8 @@ A smart fitness platform that tracks workouts, calculates calories, provides AI-
 
 ## 📚 API Documentation
 
+👉 (Fitness Tracking App with AI – Postman Workspace)[https://www.postman.com/fitness-tracking-app-with-ai/workspace/fitness-tracking-app-with-ai]
+
 ### Base URL
 
 ```
